@@ -6,6 +6,7 @@ __pycache__/
 *.pyd
 *.pdb
 
+
 # C extensions
 *.so
 
@@ -89,6 +90,7 @@ ipython_config.py
 # Environments
 .env
 .venv
+.winenv
 env/
 venv/
 ENV/
