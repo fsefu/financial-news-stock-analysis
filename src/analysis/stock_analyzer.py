@@ -1,4 +1,4 @@
-from src.data.data_loader import DataLoader
+from src.data_loader.data_loader import DataLoader
 from src.indicators.technical_indicators import TechnicalIndicators
 from src.metrics.financial_metrics import FinancialMetrics
 from src.eda.visualizer import Visualizer
