@@ -83,22 +83,6 @@ Ensure you have the following installed:
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
-### **Docker Setup (Optional)**
-
-To run the project in a Docker container:
-
-1. Build the Docker image:
-
-   ```bash
-   docker build -t financial-news-analysis .
-   ```
-
-2. Run the Docker container:
-
-   ```bash
-   docker-compose up -d
-   ```
-
 ## **Usage**
 
 ### **Running the Jupyter Notebook**
