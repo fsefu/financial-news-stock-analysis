@@ -25,19 +25,25 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Clean up any existing installation
+        run: |
+          rm -rf $GITHUB_WORKSPACE/ta-lib/bin
+          rm -rf $GITHUB_WORKSPACE/ta-lib/include
+          rm -rf $GITHUB_WORKSPACE/ta-lib/lib
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          export TA_LIB_INSTALL_DIR=$GITHUB_WORKSPACE/ta-lib-$(date +%s)
           wget https://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
           tar -xvf ta-lib-0.4.0-src.tar.gz
           cd ta-lib
-          ./configure --prefix=$GITHUB_WORKSPACE/ta-lib
+          ./configure --prefix=$TA_LIB_INSTALL_DIR
           make
           make install
-          export C_INCLUDE_PATH=$GITHUB_WORKSPACE/ta-lib/include
-          export LIBRARY_PATH=$GITHUB_WORKSPACE/ta-lib/lib
+          export C_INCLUDE_PATH=$TA_LIB_INSTALL_DIR/include
+          export LIBRARY_PATH=$TA_LIB_INSTALL_DIR/lib
+          export LD_LIBRARY_PATH=$TA_LIB_INSTALL_DIR/lib
           pip install -r requirements.txt
-
 
       - name: Run unit tests
         run: |
