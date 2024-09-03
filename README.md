@@ -63,3 +63,134 @@ Financial-News-Stock-Analysis/
 ├── README.md               # Project README file
 ├── requirements.txt        # Python dependencies
 └── LICENSE                 # License file
+```
+
+
+# **Financial News Stock Analysis**
+
+## **Installation**
+
+### **Prerequisites**
+
+Ensure you have the following installed:
+
+- Python 3.7 or later
+- Jupyter Notebook
+- Docker (optional, for containerization)
+
+### **Installing Dependencies**
+
+1. Clone this repository:
+
+    ```bash
+    git clone https://github.com/your-username/financial-news-stock-analysis.git
+    cd financial-news-stock-analysis
+    ```
+
+2. Install the required Python packages:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. (Optional) Set up a virtual environment:
+
+    ```bash
+    python -m venv .wvenv
+    source .wvenv/bin/activate  # On Windows: .wvenv\Scripts\activate
+    ```
+
+## **Usage**
+
+### **Running the Jupyter Notebook**
+
+To explore the analysis interactively:
+
+1. Start Jupyter Notebook:
+
+    ```bash
+    jupyter notebook notebooks/analysis_notebook.ipynb
+    ```
+
+2. Run the cells sequentially to perform data cleaning, headline analysis, sentiment analysis, time series analysis, stock price analysis, and correlation analysis.
+
+### **Running the Analysis Scripts**
+
+You can also run the analysis scripts directly for non-interactive use:
+
+    ```python
+    from src.analysis.data_loader import DataLoader
+    from src.analysis.sentiment_analyzer import SentimentAnalyzer
+    from src.analysis.stock_analysis import StockAnalysis
+    from src.analysis.visualizer import Visualizer
+
+    # Initialize data loader
+    data_loader = DataLoader(news_data_path='data/raw_analyst_ratings.csv', stock_data_dir='data/yfinance_data')
+
+    # Load data
+    news_data = data_loader.load_news_data()
+    stock_data = data_loader.load_stock_data(ticker='AAPL')
+
+    # Perform sentiment analysis
+    sentiment_analyzer = SentimentAnalyzer()
+    news_data['Sentiment'] = news_data['headline'].apply(sentiment_analyzer.analyze_sentiment)
+
+    # Calculate daily stock returns
+    stock_analysis = StockAnalysis()
+    stock_data = stock_analysis.calculate_daily_returns(stock_data)
+
+    # Merge data and calculate correlation
+    merged_data = stock_analysis.merge_data(news_data, stock_data)
+    correlation = stock_analysis.calculate_correlation(merged_data)
+
+    # Visualize the correlation
+    visualizer = Visualizer()
+    visualizer.plot_correlation(merged_data)
+    ```
+
+## **Results and Visualizations**
+
+The project provides several key visualizations, including:
+
+- **Distribution of Headline Lengths**
+- **Number of Articles per Publisher**
+- **Publication Date Trends**
+- **Sentiment Distribution**
+- **Top 10 Common Keywords in Headlines**
+- **Publication Frequency Over Time**
+- **Publisher Contributions**
+- **Correlation between Sentiment Scores and Daily Stock Returns**
+
+These visualizations help to uncover patterns and trends in the dataset, providing valuable insights into the financial news headlines and their impact on stock prices.
+
+## **Technologies Used**
+
+- **Python**: Core programming language
+- **Pandas**: Data manipulation and analysis
+- **Matplotlib**: Data visualization
+- **Seaborn**: Statistical data visualization
+- **TextBlob**: Sentiment analysis
+- **Jupyter Notebook**: Interactive environment for data analysis
+- **Docker**: Containerization
+
+## **Contributing**
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a Pull Request.
+
+## **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## **Contact**
+
+For any questions or feedback, feel free to reach out:
+
+- **Email**: sefuwanfd@gmail.com
+- **GitHub**: [fsefu](https://github.com/fsefu)
+- **LinkedIn**: [Sefuwan Feysa](https://www.linkedin.com/in/sefuwanf/)
