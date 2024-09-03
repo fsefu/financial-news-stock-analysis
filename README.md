@@ -66,8 +66,6 @@ Financial-News-Stock-Analysis/
 ```
 
 
-# **Financial News Stock Analysis**
-
 ## **Installation**
 
 ### **Prerequisites**
