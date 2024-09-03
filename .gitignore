@@ -91,6 +91,7 @@ ipython_config.py
 .env
 .venv
 .winenv
+.wvenv
 env/
 venv/
 ENV/
@@ -114,3 +115,4 @@ node_modules/
 
 # Config files for environments
 .env
+
