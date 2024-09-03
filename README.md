@@ -104,13 +104,22 @@ Ensure you have the following installed:
 
 To explore the analysis interactively:
 
-1. Start Jupyter Notebook:
+1. To start the eda analysis on Jupyter Notebook:
+
+    ```bash
+    jupyter notebook notebooks/eda_notebook.ipynb
+    ```
+2. To start the analysis on Jupyter Notebook:
 
     ```bash
     jupyter notebook notebooks/analysis_notebook.ipynb
     ```
+3. To start the correlation analysis on Jupyter Notebook:
 
-2. Run the cells sequentially to perform data cleaning, headline analysis, sentiment analysis, time series analysis, stock price analysis, and correlation analysis.
+    ```bash
+    jupyter notebook notebooks/news_sentiment_correlation_analysis.ipynb
+    ```
+. Run the cells sequentially to perform data cleaning, headline analysis, sentiment analysis, time series analysis, stock price analysis, and correlation analysis.
 
 ### **Running the Analysis Scripts**
 
