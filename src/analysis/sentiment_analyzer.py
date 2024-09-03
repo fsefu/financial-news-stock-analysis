@@ -1,4 +1,3 @@
-# src/sentiment_analyzer.py
 
 from textblob import TextBlob
 

@@ -25,3 +25,4 @@ class StockAnalysis:
         """Calculates the correlation between sentiment scores and daily stock returns."""
         correlation = merged_data['Sentiment'].corr(merged_data['Daily Return'])
         return correlation
+   
