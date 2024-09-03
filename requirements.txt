@@ -10,3 +10,5 @@ requests==2.32.3
 TA-Lib==0.4.32
 textblob==0.18.0.post0
 yfinance==0.2.43
+seaborn==0.13.2
+scipy==1.14.1

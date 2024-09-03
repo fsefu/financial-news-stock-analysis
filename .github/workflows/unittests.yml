@@ -1,26 +1,58 @@
-name: Python application
+name: Run Unit Tests
 
 on:
   push:
-    branches: [ main, task-1 ]
+    branches:
+      - task-3
   pull_request:
-    branches: [ main, task-1 ]
+    branches:
+      - main
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        python-version: [3.11.7]
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run tests
-      run: |
-        pytest
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Clean up any existing installation
+        run: |
+          rm -rf $GITHUB_WORKSPACE/ta-lib/bin
+          rm -rf $GITHUB_WORKSPACE/ta-lib/include
+          rm -rf $GITHUB_WORKSPACE/ta-lib/lib
+
+      - name: Install dependencies
+        run: |
+          export TA_LIB_INSTALL_DIR=$GITHUB_WORKSPACE/ta-lib-$(date +%s)
+          wget https://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+          tar -xvf ta-lib-0.4.0-src.tar.gz
+          cd ta-lib
+          ./configure --prefix=$TA_LIB_INSTALL_DIR
+          make
+          make install
+          export C_INCLUDE_PATH=$TA_LIB_INSTALL_DIR/include
+          export LIBRARY_PATH=$TA_LIB_INSTALL_DIR/lib
+          export LD_LIBRARY_PATH=$TA_LIB_INSTALL_DIR/lib
+          cd $GITHUB_WORKSPACE  # Navigate back to the root directory
+          pip install -r requirements.txt  # Install Python dependencies
+
+      - name: Run unit tests
+        run: |
+          python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: ./tests/test-reports/
